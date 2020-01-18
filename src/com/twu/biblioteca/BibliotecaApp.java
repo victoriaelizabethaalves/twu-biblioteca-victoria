@@ -2,10 +2,12 @@ package com.twu.biblioteca;
 
 public class BibliotecaApp {
 
-    public String mainService(String[] args) {
-        String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+    public static void main(String[] args) {
+        System.out.println(getWelcomeMessage());
+    }
 
-        System.out.println(welcomeMessage);
+    public static String getWelcomeMessage() {
+        String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
 
         return welcomeMessage;
     }
