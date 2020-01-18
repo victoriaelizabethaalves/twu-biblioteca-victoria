@@ -11,6 +11,6 @@ public class BibliotecaAppTest {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!",
-                bibliotecaApp.main(new String[100]));
+                bibliotecaApp.mainService(new String[100]));
     }
 }
