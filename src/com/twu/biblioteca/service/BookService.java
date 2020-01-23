@@ -10,8 +10,8 @@ public class BookService {
 
     public List<Book> listOfBooks() {
         bookList = new ArrayList<>();
-        bookList.add(new Book("Harry Potter"));
-        bookList.add(new Book("The Little Prince"));
+        bookList.add(new Book("Harry Potter", "J.K. Rowling", 1998));
+        bookList.add(new Book("The Little Prince", "Anthony", 1970));
 
         return bookList;
     }
