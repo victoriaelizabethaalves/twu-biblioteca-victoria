@@ -25,6 +25,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return  title + ", " + author + ", " + publishYear;
+        return String.format("Title: %s | Author: %s | Published Year: %d", title, author, publishYear);
     }
 }
