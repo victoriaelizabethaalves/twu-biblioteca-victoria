@@ -8,7 +8,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void displaysWelcomeMessageWhenStartingApplication() {
-        LibraryService libraryService = new LibraryService();
+        LibraryService libraryService = new LibraryService(null);
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!",
                 libraryService.getWelcomeMessage());
