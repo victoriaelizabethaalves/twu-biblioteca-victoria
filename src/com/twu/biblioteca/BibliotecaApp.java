@@ -1,10 +1,7 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.service.BookService;
 import com.twu.biblioteca.service.LibraryService;
-
-import java.util.List;
 
 public class BibliotecaApp {
 
@@ -13,8 +10,19 @@ public class BibliotecaApp {
         LibraryService libraryService = new LibraryService();
 
         System.out.println(libraryService.getWelcomeMessage());
-        System.out.println(bookService.listOfMenuOptions());
+        System.out.println(libraryService.listOfMenuOptions());
 
-        bookService.listOfBooks().forEach(book -> System.out.println(book));
+        int menuOptionChosen = 0;
+
+        while (menuOptionChosen != 2) {
+            menuOptionChosen = libraryService.chooseAMenuOption();
+
+            if (menuOptionChosen == 1) {
+                bookService.listOfBooks().forEach(book -> System.out.println(book));
+            }
+            else if (menuOptionChosen == 2) {
+                System.out.println("\nPlease select a valid option!");
+            }
+        }
     }
 }

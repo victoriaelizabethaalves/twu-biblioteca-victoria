@@ -16,8 +16,4 @@ public class BookService {
 
         return bookList;
     }
-
-    public String listOfMenuOptions(){
-        return "Menu of Biblioteca:\n 1 - List of books";
-    }
 }
