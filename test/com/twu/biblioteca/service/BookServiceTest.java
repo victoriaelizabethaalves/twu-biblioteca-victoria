@@ -1,6 +1,5 @@
 package com.twu.biblioteca.service;
 
-import com.twu.biblioteca.BibliotecaApp;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -12,7 +12,12 @@ public class BookService {
         bookList = new ArrayList<>();
         bookList.add(new Book("Harry Potter", "J.K. Rowling", 1998));
         bookList.add(new Book("The Little Prince", "Anthony", 1970));
+        bookList.add(new Book("1984", "George Orwell", 1984));
 
         return bookList;
+    }
+
+    public String listOfMenuOptions(){
+        return "Menu of Biblioteca:\n 1 - List of books";
     }
 }

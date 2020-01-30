@@ -13,6 +13,8 @@ public class BibliotecaApp {
         LibraryService libraryService = new LibraryService();
 
         System.out.println(libraryService.getWelcomeMessage());
-        System.out.println(bookService.listOfBooks());
+        System.out.println(bookService.listOfMenuOptions());
+
+        bookService.listOfBooks().forEach(book -> System.out.println(book));
     }
 }
