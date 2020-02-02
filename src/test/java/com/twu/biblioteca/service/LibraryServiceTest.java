@@ -8,8 +8,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class LibraryServiceTest {
@@ -71,5 +71,20 @@ public class LibraryServiceTest {
         verify(writer, never()).out(booksList().get(0).toString());
         verify(writer, never()).out(booksList().get(1).toString());
         verify(writer, never()).out(booksList().get(2).toString());
+    }
+
+    @Test
+    public void removesBookFromListOfBooksWhenCheckedOut() {
+        List<Book> bookList = booksList();
+        LibraryService libraryService = new LibraryService(booksList(), null, null);
+
+        libraryService.checkBookOut(bookList.get(0));
+
+        Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899);
+        Book thirdBook = new Book("O Alienista", "Machado de Assis", 1879);
+
+        List<Book> expectedBookList = Arrays.asList(secondBook, thirdBook);
+
+        assertThat(libraryService.listOfBooks(), equalTo(expectedBookList));
     }
 }

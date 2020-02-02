@@ -4,6 +4,7 @@ import com.twu.biblioteca.Reader;
 import com.twu.biblioteca.Writer;
 import com.twu.biblioteca.model.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryService {
@@ -20,7 +21,13 @@ public class LibraryService {
     }
 
     public List<Book> listOfBooks() {
-        return bookList;
+        List<Book> filteredBookList = new ArrayList<>();
+        for (Book book: bookList) {
+            if(!book.isCheckedOut()){
+                filteredBookList.add(book);
+            }
+        }
+        return filteredBookList;
     }
 
     public String getWelcomeMessage() {
@@ -52,6 +59,14 @@ public class LibraryService {
                 }
             } else if (menuOptionChosen == 2) {
                 System.out.println("\nPlease select a valid option!");
+            }
+        }
+    }
+
+    public void checkBookOut(Book bookToBeCheckedOut) {
+        for (Book book:bookList) {
+            if(book.equals(bookToBeCheckedOut)) {
+                book.checkOut();
             }
         }
     }
