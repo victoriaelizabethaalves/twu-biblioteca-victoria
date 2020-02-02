@@ -5,19 +5,22 @@ import com.twu.biblioteca.Writer;
 import com.twu.biblioteca.model.Book;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit \n";
-    private BookService bookService;
     private Reader reader;
     private Writer writer;
+    private List<Book> bookList;
 
-    public LibraryService(BookService bookService, Reader reader, Writer writer) {
-        this.bookService = bookService;
+    public LibraryService(List<Book> bookList, Reader reader, Writer writer) {
+        this.bookList = bookList;
         this.reader = reader;
         this.writer = writer;
+    }
+
+    public List<Book> listOfBooks() {
+        return bookList;
     }
 
     public String getWelcomeMessage() {
@@ -44,8 +47,7 @@ public class LibraryService {
             menuOptionChosen = chooseAMenuOption();
 
             if (menuOptionChosen == 1) {
-                List<Book> listOfBooks = bookService.listOfBooks();
-                for(Book book:listOfBooks) {
+                for(Book book:bookList) {
                     writer.out(book.toString());
                 }
             } else if (menuOptionChosen == 2) {
