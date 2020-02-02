@@ -1,6 +1,9 @@
 package com.twu.biblioteca.model;
 
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -41,5 +44,23 @@ public class BookTest {
         book.checkOut();
 
         assertTrue(book.isCheckedOut());
+    }
+
+    @Test
+    public void areEqual() {
+        Book first = new Book("O Alienista", "Machado de Assis", 1879);
+        Book second = new Book("O Alienista", "Machado de Assis", 1879);
+
+        assertThat(first.equals(second), is(true));
+        assertThat(first.hashCode() == second.hashCode(), is(true));
+    }
+
+    @Test
+    public void areNotEqual() {
+        Book first = new Book("O Alienista", "Machado de Assis", 1879);
+        Book second = new Book("O Alienista", "Machado de Assis", 1878);
+
+        assertThat(first.equals(second), not(is(true)));
+        assertThat(first.hashCode() != second.hashCode(), is(true));
     }
 }
