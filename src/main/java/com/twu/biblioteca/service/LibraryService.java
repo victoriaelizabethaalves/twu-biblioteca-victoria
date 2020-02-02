@@ -1,15 +1,23 @@
 package com.twu.biblioteca.service;
 
+import com.twu.biblioteca.Reader;
+import com.twu.biblioteca.Writer;
+import com.twu.biblioteca.model.Book;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit \n";
     private BookService bookService;
+    private Reader reader;
+    private Writer writer;
 
-    public LibraryService(BookService bookService) {
+    public LibraryService(BookService bookService, Reader reader, Writer writer) {
         this.bookService = bookService;
+        this.reader = reader;
+        this.writer = writer;
     }
 
     public String getWelcomeMessage() {
@@ -20,13 +28,11 @@ public class LibraryService {
         return menuOptions;
     }
 
-    public int chooseAMenuOption() {
+    private int chooseAMenuOption() {
         int option;
 
-        Scanner read = new Scanner(System.in);
-
         System.out.printf("\nPlease choose an option: ");
-        option = read.nextInt();
+        option = reader.nextInt();
 
         return option;
     }
@@ -38,7 +44,10 @@ public class LibraryService {
             menuOptionChosen = chooseAMenuOption();
 
             if (menuOptionChosen == 1) {
-                bookService.listOfBooks().forEach(System.out::println);
+                List<Book> listOfBooks = bookService.listOfBooks();
+                for(Book book:listOfBooks) {
+                    writer.out(book.toString());
+                }
             } else if (menuOptionChosen == 2) {
                 System.out.println("\nPlease select a valid option!");
             }
