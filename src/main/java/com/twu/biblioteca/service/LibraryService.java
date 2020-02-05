@@ -22,20 +22,9 @@ public class LibraryService {
         this.writer = writer;
     }
 
-//    public List<Book> listOfBooks() {
-//        List<Book> filteredBookList = new ArrayList<>();
-//        for (Book book: bookList) {
-//            if(!book.isCheckedOut()){
-//                filteredBookList.add(book);
-//            }
-//        }
-//        return filteredBookList;
-//    }
-
     public List<Book> listOfBooks() {
         return bookList.stream()
                 .filter(book -> !book.isCheckedOut())
-                //.map(Book::toString)
                 .collect(Collectors.toList());
     }
 
@@ -63,7 +52,7 @@ public class LibraryService {
             menuOptionChosen = chooseAMenuOption();
 
             if (menuOptionChosen == 1) {
-                for(Book book:bookList) {
+                for(Book book:listOfBooks()) {
                     writer.out(book.toString());
                 }
             } else if (menuOptionChosen == 2) {
