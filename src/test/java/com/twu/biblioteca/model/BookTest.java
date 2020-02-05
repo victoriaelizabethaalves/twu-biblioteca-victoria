@@ -34,7 +34,7 @@ public class BookTest {
     public void convertsToString(){
         Book book = new Book("O Alienista", "Machado de Assis", 1879, 4);
 
-        assertEquals("Title: O Alienista | Author: Machado de Assis | Published Year: 1879", book.toString());
+        assertEquals("Id: 4 | Title: O Alienista | Author: Machado de Assis | Published Year: 1879", book.toString());
     }
 
     @Test
