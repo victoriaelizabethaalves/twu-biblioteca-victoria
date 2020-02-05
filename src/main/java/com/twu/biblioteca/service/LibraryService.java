@@ -6,10 +6,12 @@ import com.twu.biblioteca.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit \n";
+    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit \n 3 - Checkout a book";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
@@ -20,14 +22,21 @@ public class LibraryService {
         this.writer = writer;
     }
 
+//    public List<Book> listOfBooks() {
+//        List<Book> filteredBookList = new ArrayList<>();
+//        for (Book book: bookList) {
+//            if(!book.isCheckedOut()){
+//                filteredBookList.add(book);
+//            }
+//        }
+//        return filteredBookList;
+//    }
+
     public List<Book> listOfBooks() {
-        List<Book> filteredBookList = new ArrayList<>();
-        for (Book book: bookList) {
-            if(!book.isCheckedOut()){
-                filteredBookList.add(book);
-            }
-        }
-        return filteredBookList;
+        return bookList.stream()
+                .filter(book -> !book.isCheckedOut())
+                //.map(Book::toString)
+                .collect(Collectors.toList());
     }
 
     public String getWelcomeMessage() {
@@ -59,15 +68,24 @@ public class LibraryService {
                 }
             } else if (menuOptionChosen == 2) {
                 System.out.println("\nPlease select a valid option!");
+            } else if (menuOptionChosen == 3) {
+                int book;
+                System.out.println("\nSelect the book you want to check out: ");
+                book = reader.nextInt();
+                System.out.println(checkBookOut(book));
             }
-        }
+         }
     }
 
-    public void checkBookOut(Book bookToBeCheckedOut) {
+    public String checkBookOut(int bookId) {
+        List<Book> bookList = listOfBooks();
         for (Book book:bookList) {
-            if(book.equals(bookToBeCheckedOut)) {
-                book.checkOut();
+            if(book.getBookId() == bookId) {
+                book.setCheckedOut(true);
+
+                return "Thank you! Enjoy the book!";
             }
         }
+        return "Sorry, the book is not available.";
     }
 }

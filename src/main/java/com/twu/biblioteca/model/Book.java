@@ -7,11 +7,13 @@ public class Book {
     private String author;
     private int publishYear;
     private boolean checkedOut;
+    private int bookId;
 
-    public Book(String title, String author, int publishYear) {
+    public Book(String title, String author, int publishYear, int bookId) {
         this.title = title;
         this.author = author;
         this.publishYear = publishYear;
+        this.bookId = bookId;
         this.checkedOut = false;
     }
 
@@ -27,9 +29,17 @@ public class Book {
         return publishYear;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
     @Override
     public String toString() {
-        return String.format("Title: %s | Author: %s | Published Year: %d", title, author, publishYear);
+        return String.format("Id: %d | Title: %s | Author: %s | Published Year: %d", bookId, title, author, publishYear);
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
     }
 
     public void checkOut() {

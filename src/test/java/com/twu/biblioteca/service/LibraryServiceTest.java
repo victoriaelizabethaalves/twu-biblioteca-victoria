@@ -14,9 +14,9 @@ import static org.mockito.Mockito.*;
 
 public class LibraryServiceTest {
     public List<Book> booksList() {
-        Book firstBook = new Book("Memórias Póstumas de Brás Cubas", "Machado de Assis", 1889);
-        Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899);
-        Book thirdBook = new Book("O Alienista", "Machado de Assis", 1879);
+        Book firstBook = new Book("Memórias Póstumas de Brás Cubas", "Machado de Assis", 1889, 1);
+        Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899, 2);
+        Book thirdBook = new Book("O Alienista", "Machado de Assis", 1879, 3);
 
         List<Book> bookList = Arrays.asList(firstBook, secondBook, thirdBook);
 
@@ -78,10 +78,10 @@ public class LibraryServiceTest {
         List<Book> bookList = booksList();
         LibraryService libraryService = new LibraryService(booksList(), null, null);
 
-        libraryService.checkBookOut(bookList.get(0));
+//        libraryService.checkBookOut(bookList.get(0));
 
-        Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899);
-        Book thirdBook = new Book("O Alienista", "Machado de Assis", 1879);
+        Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899, 4);
+        Book thirdBook = new Book("O Alienista", "Machado de Assis", 1879, 5);
 
         List<Book> expectedBookList = Arrays.asList(secondBook, thirdBook);
 

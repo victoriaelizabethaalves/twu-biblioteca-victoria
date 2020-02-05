@@ -13,9 +13,9 @@ public class BibliotecaApp {
         Writer writer = new Writer();
         List<Book> bookList = new ArrayList<>();
 
-        bookList.add(new Book("Harry Potter", "J.K. Rowling", 1998));
-        bookList.add(new Book("The Little Prince", "Anthony", 1970));
-        bookList.add(new Book("1984", "George Orwell", 1984));
+        bookList.add(new Book("Harry Potter", "J.K. Rowling", 1998, 1));
+        bookList.add(new Book("The Little Prince", "Anthony", 1970, 2));
+        bookList.add(new Book("1984", "George Orwell", 1984, 3));
 
         LibraryService libraryService = new LibraryService(bookList, reader, writer);
 
