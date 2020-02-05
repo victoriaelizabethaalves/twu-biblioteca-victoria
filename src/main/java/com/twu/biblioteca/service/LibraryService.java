@@ -41,7 +41,7 @@ public class LibraryService {
     private int chooseAMenuOption() {
         int option;
 
-        System.out.printf("\nPlease choose an option: ");
+        System.out.println("\nPlease choose an option: ");
         option = reader.nextInt();
 
         return option;
