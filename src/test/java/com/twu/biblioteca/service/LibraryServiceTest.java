@@ -74,7 +74,7 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void quitsApplicationWhenMenuOptionIsThree() {
+    public void checksOutABookWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
