@@ -73,6 +73,20 @@ public class LibraryServiceTest {
         verify(writer, never()).out(booksList().get(2).toString());
     }
 
+    @Test
+    public void quitsApplicationWhenMenuOptionIsThree() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(1,2, 3);
+        libraryService.menu();
+
+        verify(writer).out(booksList().get(0).toString());
+        verify(writer).out(booksList().get(1).toString());
+        verify(writer).out(booksList().get(2).toString());
+    }
+
 //    @Test
 //    public void removesBookFromListOfBooksWhenCheckedOut() {
 //        List<Book> bookList = booksList();

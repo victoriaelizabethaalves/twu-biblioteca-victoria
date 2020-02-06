@@ -17,21 +17,28 @@ public class BookTest {
     }
 
     @Test
-    public void getsBookAuthor(){
+    public void getsBookAuthor() {
         Book book = new Book("Memórias Póstumas de Brás Cubas", "Machado de Assis", 1889, 2);
 
         assertEquals("Machado de Assis", book.getAuthor());
     }
 
     @Test
-    public void getsBookYearPublish(){
+    public void getsBookYearPublish() {
         Book book = new Book("Esaú e Jacó", "Machado de Assis", 1899, 3);
 
         assertEquals(1899, book.getPublishYear());
     }
 
     @Test
-    public void convertsToString(){
+    public void getsBookId() {
+        Book book = new Book("Quincas Borba", "Machado de Assis", 1897, 4);
+
+        assertEquals(4, book.getBookId());
+    }
+
+    @Test
+    public void convertsToString() {
         Book book = new Book("O Alienista", "Machado de Assis", 1879, 4);
 
         assertEquals("Id: 4 | Title: O Alienista | Author: Machado de Assis | Published Year: 1879", book.toString());
