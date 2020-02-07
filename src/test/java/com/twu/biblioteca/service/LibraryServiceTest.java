@@ -40,7 +40,7 @@ public class LibraryServiceTest {
     public void getsMenuOptions() {
         LibraryService libraryService = new LibraryService(null,null, null);
 
-        assertEquals("Menu \n 1 - List of all books\n 2 - Quit\n 3 - Checkout a book\n 4 - Return a book",
+        assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - Quit",
                 libraryService.listOfMenuOptions());
     }
 
@@ -50,7 +50,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(1,2);
+        when(reader.nextInt()).thenReturn(1,4);
         libraryService.menu();
 
         verify(writer).out(booksList().get(0).toString());
@@ -59,12 +59,12 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void quitsApplicationWhenMenuOptionIsTwo() {
+    public void quitsApplicationWhenMenuOptionIsFour() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(2);
+        when(reader.nextInt()).thenReturn(4);
         libraryService.menu();
 
         verify(writer, never()).out(booksList().get(0).toString());
@@ -73,12 +73,12 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void removesBookWithIdOneFromListWhenMenuOptionIsThree() {
+    public void removesBookWithIdOneFromListWhenMenuOptionIsTwo() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(3, 1, 1, 2);
+        when(reader.nextInt()).thenReturn(2, 1, 1, 4);
         libraryService.menu();
 
         verify(writer, never()).out(booksList().get(0).toString());
@@ -87,12 +87,12 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void returnsBookWithIdOneFromListWhenMenuOptionIsFour() {
+    public void returnsBookWithIdOneFromListWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(3,1, 4, 1, 1, 2);
+        when(reader.nextInt()).thenReturn(2,1, 3, 1, 1, 4);
         libraryService.menu();
 
         verify(writer).out(booksList().get(0).toString());
@@ -101,12 +101,12 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void returnsMessageForInvalidBookIdWhenMenuOptionIsFour() {
+    public void returnsMessageForInvalidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(4, 5, 2);
+        when(reader.nextInt()).thenReturn(3, 5, 4);
         libraryService.menu();
 
         verify(writer).out("That is not a valid book to return.");

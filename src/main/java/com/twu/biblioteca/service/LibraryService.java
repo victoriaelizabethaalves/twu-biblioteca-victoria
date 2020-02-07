@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit\n 3 - Checkout a book\n 4 - Return a book";
+    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - Quit";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
@@ -46,21 +46,21 @@ public class LibraryService {
     public void menu() {
         int menuOptionChosen = 0;
 
-        while (menuOptionChosen != 2) {
+        while (menuOptionChosen != 4) {
             menuOptionChosen = chooseAMenuOption();
 
             if (menuOptionChosen == 1) {
                 for (Book book : listOfBooks()) {
                     writer.out(book.toString());
                 }
-            } else if (menuOptionChosen == 2) {
+            } else if (menuOptionChosen == 4) {
                 System.out.println("\nPlease select a valid option!");
-            } else if (menuOptionChosen == 3) {
+            } else if (menuOptionChosen == 2) {
                 int book;
                 System.out.println("\nSelect the book you want to check out: ");
                 book = reader.nextInt();
                 writer.out(checkBookOut(book));
-            } else if (menuOptionChosen == 4) {
+            } else if (menuOptionChosen == 3) {
                 int bookId;
                 System.out.println("\nSelect the book you want to return: ");
                 bookId = reader.nextInt();
