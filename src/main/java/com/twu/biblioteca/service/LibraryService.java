@@ -14,6 +14,11 @@ public class LibraryService {
     private Writer writer;
     private List<Book> bookList;
 
+    public static final int LIST_OF_BOOKS = 1;
+    public static final int CHECK_OUT_BOOK = 2;
+    public static final int CHECK_IN_BOOK = 3;
+    public static final int QUIT_APPLICATION = 4;
+
     public LibraryService(List<Book> bookList, Reader reader, Writer writer) {
         this.bookList = bookList;
         this.reader = reader;
@@ -46,21 +51,21 @@ public class LibraryService {
     public void menu() {
         int menuOptionChosen = 0;
 
-        while (menuOptionChosen != 4) {
+        while (menuOptionChosen != QUIT_APPLICATION) {
             menuOptionChosen = chooseAMenuOption();
 
-            if (menuOptionChosen == 1) {
+            if (menuOptionChosen == LIST_OF_BOOKS) {
                 for (Book book : listOfBooks()) {
                     writer.out(book.toString());
                 }
-            } else if (menuOptionChosen == 4) {
+            } else if (menuOptionChosen == QUIT_APPLICATION) {
                 System.out.println("\nPlease select a valid option!");
-            } else if (menuOptionChosen == 2) {
+            } else if (menuOptionChosen == CHECK_OUT_BOOK) {
                 int book;
                 System.out.println("\nSelect the book you want to check out: ");
                 book = reader.nextInt();
                 writer.out(checkBookOut(book));
-            } else if (menuOptionChosen == 3) {
+            } else if (menuOptionChosen == CHECK_IN_BOOK) {
                 int bookId;
                 System.out.println("\nSelect the book you want to return: ");
                 bookId = reader.nextInt();

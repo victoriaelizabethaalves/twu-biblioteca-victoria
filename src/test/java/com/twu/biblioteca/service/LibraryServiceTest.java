@@ -12,6 +12,13 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class LibraryServiceTest {
+    public static final int LIST_OF_BOOKS = 1;
+    public static final int CHECK_OUT_BOOK = 2;
+    public static final int CHECK_IN_BOOK = 3;
+    public static final int QUIT_APPLICATION = 4;
+    public static final int FIRST_BOOK_ID = 1;
+    public static final int BOOK_ID_OUT_OF_RANGE = 5;
+
     public List<Book> booksList() {
         Book firstBook = new Book("Memórias Póstumas de Brás Cubas", "Machado de Assis", 1889, 1);
         Book secondBook = new Book("Esaú e Jacó", "Machado de Assis", 1899, 2);
@@ -50,7 +57,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(1,4);
+        when(reader.nextInt()).thenReturn(LIST_OF_BOOKS,QUIT_APPLICATION);
         libraryService.menu();
 
         verify(writer).out(booksList().get(0).toString());
@@ -64,7 +71,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(4);
+        when(reader.nextInt()).thenReturn(QUIT_APPLICATION);
         libraryService.menu();
 
         verify(writer, never()).out(booksList().get(0).toString());
@@ -78,7 +85,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(2, 1, 1, 4);
+        when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, FIRST_BOOK_ID, LIST_OF_BOOKS, QUIT_APPLICATION);
         libraryService.menu();
 
         verify(writer, never()).out(booksList().get(0).toString());
@@ -92,7 +99,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(2,1, 3, 1, 1, 4);
+        when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK,FIRST_BOOK_ID, CHECK_IN_BOOK, FIRST_BOOK_ID, LIST_OF_BOOKS, QUIT_APPLICATION);
         libraryService.menu();
 
         verify(writer).out(booksList().get(0).toString());
@@ -106,7 +113,7 @@ public class LibraryServiceTest {
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), reader, writer);
 
-        when(reader.nextInt()).thenReturn(3, 5, 4);
+        when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, BOOK_ID_OUT_OF_RANGE, QUIT_APPLICATION);
         libraryService.menu();
 
         verify(writer).out("That is not a valid book to return.");
