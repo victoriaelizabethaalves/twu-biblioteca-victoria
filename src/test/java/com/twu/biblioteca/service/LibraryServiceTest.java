@@ -18,7 +18,8 @@ public class LibraryServiceTest {
     public static final int CHECK_OUT_BOOK = 2;
     public static final int CHECK_IN_BOOK = 3;
     public static final int LIST_OF_MOVIES = 4;
-    public static final int QUIT_APPLICATION = 5;
+    public static final int CHECK_OUT_MOVIE = 5;
+    public static final int QUIT_APPLICATION = 6;
     public static final int FIRST_BOOK_ID = 1;
     public static final int BOOK_ID_OUT_OF_RANGE = 99;
 
@@ -33,9 +34,9 @@ public class LibraryServiceTest {
     }
 
     public List<Movie> movieList() {
-        Movie firstMovie = new Movie("La La Land", 2016, "Lola",Rating.NINE);
-        Movie secondMovie = new Movie("The Godfather", 1970, "Francis", Rating.TEN);
-        Movie thirdMovie = new Movie("The Lion King", 1990, "Disney", Rating.NINE);
+        Movie firstMovie = new Movie("La La Land", 2016, "Lola",Rating.NINE,1);
+        Movie secondMovie = new Movie("The Godfather", 1970, "Francis", Rating.TEN, 2);
+        Movie thirdMovie = new Movie("The Lion King", 1990, "Disney", Rating.NINE, 3);
 
         List<Movie> movieList = Arrays.asList(firstMovie, secondMovie, thirdMovie);
 
@@ -60,7 +61,7 @@ public class LibraryServiceTest {
     public void getsMenuOptions() {
         LibraryService libraryService = new LibraryService(null,null,null, null);
 
-        assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Quit",
+        assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit",
                 libraryService.listOfMenuOptions());
     }
 

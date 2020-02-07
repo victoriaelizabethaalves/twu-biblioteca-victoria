@@ -20,9 +20,9 @@ public class BibliotecaApp {
         bookList.add(new Book("The Little Prince", "Anthony", 1970, 2));
         bookList.add(new Book("1984", "George Orwell", 1984, 3));
 
-        movieList.add(new Movie("La La Land", 2016, "Lola", Rating.NINE));
-        movieList.add(new Movie("The Godfather", 1970, "Francis", Rating.TEN));
-        movieList.add(new Movie("The Lion King", 1990, "Disney", Rating.NINE));
+        movieList.add(new Movie("La La Land", 2016, "Lola", Rating.NINE, 1));
+        movieList.add(new Movie("The Godfather", 1970, "Francis", Rating.TEN, 2));
+        movieList.add(new Movie("The Lion King", 1990, "Disney", Rating.NINE, 3));
 
         LibraryService libraryService = new LibraryService(bookList, movieList, reader, writer);
 

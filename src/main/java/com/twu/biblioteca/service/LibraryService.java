@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Quit";
+    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
@@ -20,7 +20,8 @@ public class LibraryService {
     public static final int CHECK_OUT_BOOK = 2;
     public static final int CHECK_IN_BOOK = 3;
     public static final int LIST_OF_MOVIES = 4;
-    public static final int QUIT_APPLICATION = 5;
+    public static final int CHECK_OUT_MOVIE = 5;
+    public static final int QUIT_APPLICATION = 6;
 
     public LibraryService(List<Book> bookList, List<Movie> movieList, Reader reader, Writer writer) {
         this.bookList = bookList;
@@ -36,7 +37,9 @@ public class LibraryService {
     }
 
     public List<Movie> listOfMovies() {
-        return movieList;
+        return movieList.stream()
+                .filter(movie -> !movie.isCheckedOut())
+                .collect(Collectors.toList());
     }
 
     public String getWelcomeMessage() {
@@ -83,8 +86,34 @@ public class LibraryService {
                 for(Movie movie:listOfMovies) {
                     writer.out(movie.toString());
                 }
+            } else if (menuOptionChosen == CHECK_OUT_MOVIE) {
+                int movie;
+                System.out.println("\nSelect the movie you want to check out: ");
+                movie = reader.nextInt();
+                writer.out(checkMovieOut(movie));
             }
         }
+    }
+
+    private String checkMovieOut(int movieId) {
+        Movie movie;
+        movie = getMovieFromMovieId(movieId, listOfMovies());
+
+        if (movie != null) {
+            movie.checkOut();
+            return "Thank you! Enjoy the movie!";
+        } else {
+            return "Sorry, the movie is not available.";
+        }
+    }
+
+    private Movie getMovieFromMovieId(int movieId, List<Movie> list) {
+        for (Movie movie : list) {
+            if (movie.getMovieId() == movieId) {
+                return movie;
+            }
+        }
+        return null;
     }
 
     private Book getBookFromBookId(int bookId, List<Book> list) {
