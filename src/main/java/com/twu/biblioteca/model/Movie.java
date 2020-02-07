@@ -44,4 +44,9 @@ public class Movie {
     public void setRating(Rating rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s | Year: %d | Director: %s | Rating: %s", name, year, director, rating);
+    }
 }

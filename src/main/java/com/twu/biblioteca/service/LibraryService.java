@@ -3,32 +3,40 @@ package com.twu.biblioteca.service;
 import com.twu.biblioteca.Reader;
 import com.twu.biblioteca.Writer;
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - Quit";
+    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Quit";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
+    private List<Movie> movieList;
 
     public static final int LIST_OF_BOOKS = 1;
     public static final int CHECK_OUT_BOOK = 2;
     public static final int CHECK_IN_BOOK = 3;
-    public static final int QUIT_APPLICATION = 4;
+    public static final int LIST_OF_MOVIES = 4;
+    public static final int QUIT_APPLICATION = 5;
 
-    public LibraryService(List<Book> bookList, Reader reader, Writer writer) {
+    public LibraryService(List<Book> bookList, List<Movie> movieList, Reader reader, Writer writer) {
         this.bookList = bookList;
         this.reader = reader;
         this.writer = writer;
+        this.movieList = movieList;
     }
 
     public List<Book> listOfBooks() {
         return bookList.stream()
                 .filter(book -> !book.isCheckedOut())
                 .collect(Collectors.toList());
+    }
+
+    public List<Movie> listOfMovies() {
+        return movieList;
     }
 
     public String getWelcomeMessage() {
@@ -70,6 +78,11 @@ public class LibraryService {
                 System.out.println("\nSelect the book you want to return: ");
                 bookId = reader.nextInt();
                 writer.out(returnBook(bookId));
+            } else if (menuOptionChosen == LIST_OF_MOVIES) {
+                List<Movie> listOfMovies = listOfMovies();
+                for(Movie movie:listOfMovies) {
+                    writer.out(movie.toString());
+                }
             }
         }
     }

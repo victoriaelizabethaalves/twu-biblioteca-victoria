@@ -24,7 +24,7 @@ public class BibliotecaApp {
         movieList.add(new Movie("The Godfather", 1970, "Francis", Rating.TEN));
         movieList.add(new Movie("The Lion King", 1990, "Disney", Rating.NINE));
 
-        LibraryService libraryService = new LibraryService(bookList, reader, writer);
+        LibraryService libraryService = new LibraryService(bookList, movieList, reader, writer);
 
         System.out.println(libraryService.getWelcomeMessage());
         System.out.println(libraryService.listOfMenuOptions());
