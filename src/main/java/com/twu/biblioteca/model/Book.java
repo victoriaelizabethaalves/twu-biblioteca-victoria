@@ -38,12 +38,12 @@ public class Book {
         return String.format("Id: %d | Title: %s | Author: %s | Published Year: %d", bookId, title, author, publishYear);
     }
 
-    public void setCheckedOut(boolean checkedOut) {
-        this.checkedOut = checkedOut;
-    }
-
     public void checkOut() {
         this.checkedOut = true;
+    }
+
+    public void checkIn() {
+        this.checkedOut = false;
     }
 
     public boolean isCheckedOut() {

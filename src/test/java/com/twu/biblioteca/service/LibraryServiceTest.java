@@ -40,7 +40,7 @@ public class LibraryServiceTest {
     public void getsMenuOptions() {
         LibraryService libraryService = new LibraryService(null,null, null);
 
-        assertEquals("Menu \n 1 - List of all books\n 2 - Quit \n 3 - Checkout a book",
+        assertEquals("Menu \n 1 - List of all books\n 2 - Quit\n 3 - Checkout a book\n 4 - Return a book",
                 libraryService.listOfMenuOptions());
     }
 
@@ -71,4 +71,45 @@ public class LibraryServiceTest {
         verify(writer, never()).out(booksList().get(1).toString());
         verify(writer, never()).out(booksList().get(2).toString());
     }
+
+    @Test
+    public void removesBookWithIdOneFromListWhenMenuOptionIsThree() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(3, 1, 1, 2);
+        libraryService.menu();
+
+        verify(writer, never()).out(booksList().get(0).toString());
+        verify(writer).out(booksList().get(1).toString());
+        verify(writer).out(booksList().get(2).toString());
+    }
+
+    @Test
+    public void returnsBookWithIdOneFromListWhenMenuOptionIsFour() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(3,1, 4, 1, 1, 2);
+        libraryService.menu();
+
+        verify(writer).out(booksList().get(0).toString());
+        verify(writer).out(booksList().get(1).toString());
+        verify(writer).out(booksList().get(2).toString());
+    }
+
+    @Test
+    public void returnsMessageForInvalidBookIdWhenMenuOptionIsFour() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(4, 5, 2);
+        libraryService.menu();
+
+        verify(writer).out("That is not a valid book to return.");
+    }
+
 }

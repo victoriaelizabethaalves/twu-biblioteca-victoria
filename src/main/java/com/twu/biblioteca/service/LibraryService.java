@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit \n 3 - Checkout a book";
+    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Quit\n 3 - Checkout a book\n 4 - Return a book";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
@@ -50,7 +50,7 @@ public class LibraryService {
             menuOptionChosen = chooseAMenuOption();
 
             if (menuOptionChosen == 1) {
-                for(Book book:listOfBooks()) {
+                for (Book book : listOfBooks()) {
                     writer.out(book.toString());
                 }
             } else if (menuOptionChosen == 2) {
@@ -59,20 +59,46 @@ public class LibraryService {
                 int book;
                 System.out.println("\nSelect the book you want to check out: ");
                 book = reader.nextInt();
-                System.out.println(checkBookOut(book));
+                writer.out(checkBookOut(book));
+            } else if (menuOptionChosen == 4) {
+                int bookId;
+                System.out.println("\nSelect the book you want to return: ");
+                bookId = reader.nextInt();
+                writer.out(returnBook(bookId));
             }
-         }
+        }
+    }
+
+    private Book getBookFromBookId(int bookId, List<Book> list) {
+        for (Book book : list) {
+            if (book.getBookId() == bookId) {
+                return book;
+            }
+        }
+        return null;
     }
 
     public String checkBookOut(int bookId) {
-        List<Book> bookList = listOfBooks();
-        for (Book book:bookList) {
-            if(book.getBookId() == bookId) {
-                book.setCheckedOut(true);
+        Book book;
+        book = getBookFromBookId(bookId, listOfBooks());
 
-                return "Thank you! Enjoy the book!";
-            }
+        if (book != null) {
+            book.checkOut();
+            return "Thank you! Enjoy the book!";
+        } else {
+            return "Sorry, the book is not available.";
         }
-        return "Sorry, the book is not available.";
+    }
+
+    public String returnBook(int bookId) {
+        Book book;
+        book = getBookFromBookId(bookId, this.bookList);
+
+        if (book != null) {
+            book.checkIn();
+            return "Thank you for returning the book!";
+        } else {
+            return "That is not a valid book to return.";
+        }
     }
 }
