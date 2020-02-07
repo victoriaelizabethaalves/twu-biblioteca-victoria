@@ -29,18 +29,6 @@ public class Movie {
         return rating;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
     public void setRating(Rating rating) {
         this.rating = rating;
     }

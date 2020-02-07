@@ -79,7 +79,7 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void quitsApplicationWhenMenuOptionIsFour() {
+    public void quitsApplicationWhenMenuOptionIsFive() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
@@ -166,5 +166,19 @@ public class LibraryServiceTest {
         libraryService.menu();
 
         verify(writer).out("That is not a valid book to return.");
+    }
+
+    @Test
+    public void showsListOfMoviesWhenMenuOptionIsFour() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(LIST_OF_MOVIES,QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out(movieList().get(0).toString());
+        verify(writer).out(movieList().get(1).toString());
+        verify(writer).out(movieList().get(2).toString());
     }
 }
