@@ -94,6 +94,30 @@ public class LibraryServiceTest {
     }
 
     @Test
+    public void returnsMessageForAvailableBookToCheckOutWhenMenuOptionIsTwo() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out("Thank you! Enjoy the book!");
+    }
+
+    @Test
+    public void returnsMessageForUnavailableBookToCheckOutWhenMenuOptionIsTwo() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, BOOK_ID_OUT_OF_RANGE, QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out("Sorry, the book is not available.");
+    }
+
+    @Test
     public void returnsBookWithIdOneFromListWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
@@ -108,6 +132,18 @@ public class LibraryServiceTest {
     }
 
     @Test
+    public void returnsMessageForValidBookIdWhenMenuOptionIsThree() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out("Thank you for returning the book!");
+    }
+
+    @Test
     public void returnsMessageForInvalidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
@@ -118,5 +154,4 @@ public class LibraryServiceTest {
 
         verify(writer).out("That is not a valid book to return.");
     }
-
 }
