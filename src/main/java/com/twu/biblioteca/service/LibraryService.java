@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 public class LibraryService {
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    private String menuOptions = "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit";
+    private String menuOptions =
+            "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;

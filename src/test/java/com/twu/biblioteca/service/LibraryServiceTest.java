@@ -21,7 +21,9 @@ public class LibraryServiceTest {
     public static final int CHECK_OUT_MOVIE = 5;
     public static final int QUIT_APPLICATION = 6;
     public static final int FIRST_BOOK_ID = 1;
+    public static final int FIRST_MOVIE_ID = 1;
     public static final int BOOK_ID_OUT_OF_RANGE = 99;
+    public static final int MOVIE_ID_OUT_OF_RANGE = 99;
 
     public List<Book> booksList() {
         Book firstBook = new Book("Memórias Póstumas de Brás Cubas", "Machado de Assis", 1889, 1);
@@ -80,7 +82,7 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void quitsApplicationWhenMenuOptionIsFive() {
+    public void quitsApplicationWhenMenuOptionIsSix() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
         LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
@@ -181,5 +183,29 @@ public class LibraryServiceTest {
         verify(writer).out(movieList().get(0).toString());
         verify(writer).out(movieList().get(1).toString());
         verify(writer).out(movieList().get(2).toString());
+    }
+
+    @Test
+    public void returnsMessageForAvailableMovieToCheckOutWhenMenuOptionIsFive() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(CHECK_OUT_MOVIE, FIRST_MOVIE_ID, QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out("Thank you! Enjoy the movie!");
+    }
+
+    @Test
+    public void returnsMessageForUnavailableMovieToCheckOutWhenMenuOptionIsFive() {
+        Reader reader = mock(Reader.class);
+        Writer writer = mock(Writer.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+
+        when(reader.nextInt()).thenReturn(CHECK_OUT_MOVIE, MOVIE_ID_OUT_OF_RANGE, QUIT_APPLICATION);
+        libraryService.menu();
+
+        verify(writer).out("Sorry, the movie is not available.");
     }
 }
