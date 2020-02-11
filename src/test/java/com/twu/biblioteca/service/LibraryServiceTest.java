@@ -163,7 +163,7 @@ public class LibraryServiceTest {
 
         when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
         libraryService.menu();
-        
+
         verify(writer).out("Thank you for returning the book!");
     }
 
