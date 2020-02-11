@@ -159,13 +159,11 @@ public class LibraryServiceTest {
     public void returnsMessageForValidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        UserService userService = mock(UserService.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
         libraryService.menu();
-
-        verify(userService).login();
+        
         verify(writer).out("Thank you for returning the book!");
     }
 
@@ -173,13 +171,11 @@ public class LibraryServiceTest {
     public void returnsMessageForInvalidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        UserService userService = mock(UserService.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, BOOK_ID_OUT_OF_RANGE, QUIT_APPLICATION);
         libraryService.menu();
 
-        verify(userService).login();
         verify(writer).out("That is not a valid book to return.");
     }
 

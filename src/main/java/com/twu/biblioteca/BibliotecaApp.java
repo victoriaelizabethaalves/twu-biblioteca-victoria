@@ -29,9 +29,9 @@ public class BibliotecaApp {
         movieList.add(new Movie("The Godfather", 1970, "Francis", Rating.TEN, 2));
         movieList.add(new Movie("The Lion King", 1990, "Disney", Rating.NINE, 3));
 
-        userList.add(new User("password1", "111-1111"));
-        userList.add(new User("password2", "222-2222"));
-        userList.add(new User("password3", "333-3333"));
+        userList.add(new User("password1", "111-1111", "vicky", "vicky@gmail.com", "99999999"));
+        userList.add(new User("password2", "222-2222", "chris", "chris@uol.com", "99998888"));
+        userList.add(new User("password3", "333-3333", "vigi", "vigi@gmail.com", "88888888"));
 
         LibraryService libraryService = new LibraryService(bookList, movieList, reader, writer, userService);
 

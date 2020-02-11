@@ -14,9 +14,9 @@ import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
     public List<User> userList() {
-        User firstUser = new User("password1", "111-1111");
-        User secondUser = new User("password2", "222-2222");
-        User thirdUser = new User("password3", "333-3333");
+        User firstUser = new User("password1", "111-1111", "vicky", "vicky@gmail.com", "99999999");
+        User secondUser = new User("password2", "222-2222", "chris", "chris@uol.com", "99998888");
+        User thirdUser = new User("password3", "333-3333", "vigi", "vigi@gmail.com", "88888888");
 
         List<User> userList = Arrays.asList(firstUser, secondUser, thirdUser);
 
