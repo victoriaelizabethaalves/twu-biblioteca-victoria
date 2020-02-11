@@ -36,7 +36,7 @@ public class LibraryServiceTest {
     }
 
     public List<Movie> movieList() {
-        Movie firstMovie = new Movie("La La Land", 2016, "Lola",Rating.NINE,1);
+        Movie firstMovie = new Movie("La La Land", 2016, "Lola", Rating.NINE,1);
         Movie secondMovie = new Movie("The Godfather", 1970, "Francis", Rating.TEN, 2);
         Movie thirdMovie = new Movie("The Lion King", 1990, "Disney", Rating.NINE, 3);
 
@@ -47,13 +47,13 @@ public class LibraryServiceTest {
 
     @Test
     public void listAllBooksAfterWelcomeMessage(){
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), null, null);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), null, null, null);
         assertNotNull(libraryService.listOfBooks());
     }
 
     @Test
     public void getsWelcomeMessage() {
-        LibraryService libraryService = new LibraryService(null,null, null, null);
+        LibraryService libraryService = new LibraryService(null,null, null, null, null);
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!",
                 libraryService.getWelcomeMessage());
@@ -61,7 +61,7 @@ public class LibraryServiceTest {
 
     @Test
     public void getsMenuOptions() {
-        LibraryService libraryService = new LibraryService(null,null,null, null);
+        LibraryService libraryService = new LibraryService(null,null,null, null, null);
 
         assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit",
                 libraryService.listOfMenuOptions());
@@ -71,7 +71,7 @@ public class LibraryServiceTest {
     public void showsListOfBooksWhenMenuOptionIsOne() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(LIST_OF_BOOKS,QUIT_APPLICATION);
         libraryService.menu();
@@ -85,7 +85,7 @@ public class LibraryServiceTest {
     public void quitsApplicationWhenMenuOptionIsSix() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(QUIT_APPLICATION);
         libraryService.menu();
@@ -96,14 +96,16 @@ public class LibraryServiceTest {
     }
 
     @Test
-    public void removesBookWithIdOneFromListWhenMenuOptionIsTwo() {
+    public void removesBookWithIdOneWhenChecksOutBookWthIdOne() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, FIRST_BOOK_ID, LIST_OF_BOOKS, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer, never()).out(booksList().get(0).toString());
         verify(writer).out(booksList().get(1).toString());
         verify(writer).out(booksList().get(2).toString());
@@ -113,11 +115,13 @@ public class LibraryServiceTest {
     public void returnsMessageForAvailableBookToCheckOutWhenMenuOptionIsTwo() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer).out("Thank you! Enjoy the book!");
     }
 
@@ -125,11 +129,13 @@ public class LibraryServiceTest {
     public void returnsMessageForUnavailableBookToCheckOutWhenMenuOptionIsTwo() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK, BOOK_ID_OUT_OF_RANGE, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer).out("Sorry, the book is not available.");
     }
 
@@ -137,11 +143,13 @@ public class LibraryServiceTest {
     public void returnsBookWithIdOneFromListWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_BOOK,FIRST_BOOK_ID, CHECK_IN_BOOK, FIRST_BOOK_ID, LIST_OF_BOOKS, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer).out(booksList().get(0).toString());
         verify(writer).out(booksList().get(1).toString());
         verify(writer).out(booksList().get(2).toString());
@@ -151,11 +159,13 @@ public class LibraryServiceTest {
     public void returnsMessageForValidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, FIRST_BOOK_ID, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer).out("Thank you for returning the book!");
     }
 
@@ -163,11 +173,13 @@ public class LibraryServiceTest {
     public void returnsMessageForInvalidBookIdWhenMenuOptionIsThree() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        UserService userService = mock(UserService.class);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, userService);
 
         when(reader.nextInt()).thenReturn(CHECK_IN_BOOK, BOOK_ID_OUT_OF_RANGE, QUIT_APPLICATION);
         libraryService.menu();
 
+        verify(userService).login();
         verify(writer).out("That is not a valid book to return.");
     }
 
@@ -175,7 +187,7 @@ public class LibraryServiceTest {
     public void showsListOfMoviesWhenMenuOptionIsFour() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(LIST_OF_MOVIES,QUIT_APPLICATION);
         libraryService.menu();
@@ -189,7 +201,7 @@ public class LibraryServiceTest {
     public void returnsMessageForAvailableMovieToCheckOutWhenMenuOptionIsFive() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_MOVIE, FIRST_MOVIE_ID, QUIT_APPLICATION);
         libraryService.menu();
@@ -201,7 +213,7 @@ public class LibraryServiceTest {
     public void returnsMessageForUnavailableMovieToCheckOutWhenMenuOptionIsFive() {
         Reader reader = mock(Reader.class);
         Writer writer = mock(Writer.class);
-        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer);
+        LibraryService libraryService = new LibraryService(booksList(), movieList(), reader, writer, null);
 
         when(reader.nextInt()).thenReturn(CHECK_OUT_MOVIE, MOVIE_ID_OUT_OF_RANGE, QUIT_APPLICATION);
         libraryService.menu();

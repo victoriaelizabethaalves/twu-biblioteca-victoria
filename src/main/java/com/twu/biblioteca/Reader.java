@@ -11,4 +11,13 @@ public class Reader {
 
         return scannerValue;
     }
+
+    public String nextLine() {
+        Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter(System.lineSeparator());
+
+        String scannerValue = scanner.nextLine();
+
+        return scannerValue;
+    }
 }

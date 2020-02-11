@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LibraryService {
+    private final UserService userService;
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     private String menuOptions =
             "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit";
@@ -24,11 +25,12 @@ public class LibraryService {
     public static final int CHECK_OUT_MOVIE = 5;
     public static final int QUIT_APPLICATION = 6;
 
-    public LibraryService(List<Book> bookList, List<Movie> movieList, Reader reader, Writer writer) {
+    public LibraryService(List<Book> bookList, List<Movie> movieList, Reader reader, Writer writer, UserService userService) {
         this.bookList = bookList;
         this.reader = reader;
         this.writer = writer;
         this.movieList = movieList;
+        this.userService = userService;
     }
 
     public List<Book> listOfBooks() {
@@ -71,15 +73,16 @@ public class LibraryService {
                     writer.out(book.toString());
                 }
             } else if (menuOptionChosen == QUIT_APPLICATION) {
-                System.out.println("\nPlease select a valid option!");
+                writer.out("\nPlease select a valid option!");
             } else if (menuOptionChosen == CHECK_OUT_BOOK) {
                 int book;
-                System.out.println("\nSelect the book you want to check out: ");
+                userService.login();
+                writer.out("\nSelect the book you want to check out: ");
                 book = reader.nextInt();
                 writer.out(checkBookOut(book));
             } else if (menuOptionChosen == CHECK_IN_BOOK) {
                 int bookId;
-                System.out.println("\nSelect the book you want to return: ");
+                writer.out("\nSelect the book you want to return: ");
                 bookId = reader.nextInt();
                 writer.out(returnBook(bookId));
             } else if (menuOptionChosen == LIST_OF_MOVIES) {
@@ -89,7 +92,7 @@ public class LibraryService {
                 }
             } else if (menuOptionChosen == CHECK_OUT_MOVIE) {
                 int movie;
-                System.out.println("\nSelect the movie you want to check out: ");
+                writer.out("\nSelect the movie you want to check out: ");
                 movie = reader.nextInt();
                 writer.out(checkMovieOut(movie));
             }
