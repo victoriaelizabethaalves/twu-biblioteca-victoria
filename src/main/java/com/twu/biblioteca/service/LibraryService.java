@@ -12,7 +12,7 @@ public class LibraryService {
     private final UserService userService;
     private String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     private String menuOptions =
-            "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit";
+            "Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit\n 7 - User information";
     private Reader reader;
     private Writer writer;
     private List<Book> bookList;
@@ -24,6 +24,7 @@ public class LibraryService {
     public static final int LIST_OF_MOVIES = 4;
     public static final int CHECK_OUT_MOVIE = 5;
     public static final int QUIT_APPLICATION = 6;
+    public static final int USER_INFO = 7;
 
     public LibraryService(List<Book> bookList, List<Movie> movieList, Reader reader, Writer writer, UserService userService) {
         this.bookList = bookList;
@@ -95,6 +96,8 @@ public class LibraryService {
                 writer.out("\nSelect the movie you want to check out: ");
                 movie = reader.nextInt();
                 writer.out(checkMovieOut(movie));
+            } else if (menuOptionChosen == USER_INFO) {
+                userService.info();
             }
         }
     }

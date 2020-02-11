@@ -34,4 +34,9 @@ public class User {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s | Email: %s | Phone Number: %s", name, email, phoneNumber);
+    }
 }

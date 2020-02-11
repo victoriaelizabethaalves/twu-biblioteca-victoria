@@ -63,7 +63,7 @@ public class LibraryServiceTest {
     public void getsMenuOptions() {
         LibraryService libraryService = new LibraryService(null,null,null, null, null);
 
-        assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit",
+        assertEquals("Menu \n 1 - List of all books\n 2 - Checkout a book\n 3 - Return a book\n 4 - List of all movies\n 5 - Check out a movie\n 6 - Quit\n 7 - User information",
                 libraryService.listOfMenuOptions());
     }
 
